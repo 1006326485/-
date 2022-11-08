@@ -1,0 +1,17 @@
+{
+  "author": "Spire Cai",
+	"main": "index.html",
+	"logo": "favicon-32x32.png",
+	"features": [
+		{
+		  "code": "背单词啊啊啊",
+		  "explain": "背单词, 背单词, 背单词",
+			"cmds":["bdc", "背单词", "dc", "单词", "px", "拼写"]
+		}
+	],
+  "development": {
+    "main": "http://localhost:3000/"
+  },
+	"preload": "preload.js",
+  "platform": ["win32", "darwin", "linux"]
+}

@@ -165,18 +165,34 @@ const defaultState: AppState = {
 }
 
 export const AppStateProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [state, setState] = useLocalStorage<AppState>('state', defaultState, options)
+  // 从 localStorage 中读取状态 (如果有的话)
+  const 初始化应用状态 = 背单词 ? 初始化单词数据() : defaultState
+  const [state, setState] = useLocalStorage<AppState>('state', 初始化应用状态, options)
   return <AppStateContext.Provider value={{ state: state!, dispatch: setState }}>{children}</AppStateContext.Provider>
 }
 
 const options = {
   raw: false,
   serializer(state: AppState): string {
-    return JSON.stringify(omit(state, 'dictionaries'))
+    const 数据 = JSON.stringify(omit(state, 'dictionaries'))
+    if (背单词) 背单词.写入数据(数据)
+    return 数据
   },
   deserializer(source: string): AppState {
     const state: AppState = JSON.parse(source)
     state.dictionaries = dictionaries
     return state
   },
+}
+
+const 初始化单词数据 = () => {
+  const 数据 = JSON.parse(背单词.读取数据()) as AppState
+
+  // 如果没有数据，就返回默认数据
+  return 数据 ? 数据 : defaultState
+}
+
+const 背单词 = (window as any).背单词 as {
+  读取数据: () => string
+  写入数据: (数据: string) => void
 }
