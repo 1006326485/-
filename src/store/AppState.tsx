@@ -48,6 +48,10 @@ export type AppState = {
    * loop play sound until word spells right
    */
   soundLoop: boolean
+  /* *
+   * 不透明度
+   */
+  不透明度: number
 }
 
 export type AppStateData = {
@@ -151,6 +155,17 @@ export function useDarkMode(): [darkMode: boolean, setDarkMode: (state: boolean)
   return [state.darkMode, setDarkMode]
 }
 
+/**
+ *
+ * @returns [不透明度, 设置不透明度]
+ */
+export function useOpacity(): [不透明度: number, setOpacity: (state: number) => void] {
+  const { state, dispatch } = useContext(AppStateContext)
+  const 设置不透明度 = useCallback((不透明度: number) => dispatch({ ...state, 不透明度 }), [state, dispatch])
+
+  return [state.不透明度, 设置不透明度]
+}
+
 const defaultState: AppState = {
   sound: true,
   dictionaries,
@@ -162,6 +177,7 @@ const defaultState: AppState = {
   phonetic: true,
   darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
   soundLoop: false,
+  不透明度: 1,
 }
 
 export const AppStateProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
