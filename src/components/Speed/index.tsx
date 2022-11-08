@@ -4,7 +4,7 @@ import InfoBox from './InfoBox'
 
 const Speed: React.FC<SpeedProps> = ({ correctCount, inputCount, isStart }) => {
   const { seconds, minutes, hours, days, start, pause } = useStopwatch({ autoStart: false })
-  const correctRate = (correctCount / (inputCount === 0 ? 1 : inputCount)).toFixed(2)
+  const correctRate = ((correctCount / (inputCount === 0 ? 1 : inputCount)) * 100).toFixed(2)
   const time = seconds + minutes * 60 + hours * 60 * 60 + days * 12 * 60 * 60
   const speed = (correctCount / (time === 0 ? 1 : time)).toFixed(2)
   const secondsStirng = seconds < 10 ? '0' + seconds : seconds + ''
@@ -19,7 +19,7 @@ const Speed: React.FC<SpeedProps> = ({ correctCount, inputCount, isStart }) => {
       <InfoBox info={inputCount + ''} description="输入数" />
       <InfoBox info={speed + ''} description="速度" />
       <InfoBox info={correctCount + ''} description="正确数" />
-      <InfoBox info={correctRate + ''} description="正确率" />
+      <InfoBox info={correctRate + '%'} description="正确率" />
     </div>
   )
 }
